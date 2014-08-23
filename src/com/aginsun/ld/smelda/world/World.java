@@ -1,5 +1,6 @@
 package com.aginsun.ld.smelda.world;
 
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.aginsun.ld.smelda.entities.Player;
@@ -10,6 +11,7 @@ public class World
 	Player player;
 	GameRender render;
 	StateBasedGame game;
+	public Vector2f size = new Vector2f(1000, 1000);
 	
 	public World(GameRender render, StateBasedGame game)
 	{

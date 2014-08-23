@@ -25,12 +25,11 @@ public class Map
 		
 		try
 		{
-			File file = new File(fileLoc);
-			
+			File file = new File("bin/res/aginsun/maps/" + fileLoc);
 			scanner = new Scanner(file);
 			
-			tileWidth = scanner.nextInt();
-			tileHeight = scanner.nextInt();
+			tileWidth = 8;
+			tileHeight = 4;
 //			mapWidth = tileWidth * 64;
 //			mapHeight = tileHeight * 64;
 			
@@ -43,13 +42,15 @@ public class Map
 					int tileID = scanner.nextInt();
 					
 					Tile tile = TileCreator.generateTile(this, tileID, new Vector2f(j, i));
+					if(tile == null)
+						System.out.println("???" + tileID);
 					grid[i][j] = tile;
 				}
 			}
 		}
 		catch(Exception e)
 		{
-			
+			e.printStackTrace();
 		}
 	}
 }

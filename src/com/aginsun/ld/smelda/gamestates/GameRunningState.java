@@ -8,6 +8,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.aginsun.ld.smelda.entities.Player;
 import com.aginsun.ld.smelda.render.GameRender;
+import com.aginsun.ld.smelda.tiles.Tile;
+import com.aginsun.ld.smelda.world.Map;
 import com.aginsun.ld.smelda.world.World;
 
 public class GameRunningState extends BasicGameState
@@ -21,11 +23,20 @@ public class GameRunningState extends BasicGameState
 	public void init(GameContainer container, StateBasedGame game) throws SlickException 
 	{
 		this.game = game;
+		Map map = new Map("mainarea");
 		render = new GameRender();
 		world = new World(render, game);
-		world.load();
-		player = new Player("name");
-		world.addPlayer(player);
+		player = new Player(world, "res/aginsun/textures/player.png");
+		for(Tile[] tiles : map.grid)
+		{
+			for(Tile tile : tiles)
+			{
+				render.tiles.add(tile);
+			}
+		}
+		render.player = player;
+//		world.load();
+//		world.addPlayer(player);
 	}
 
 	@Override
@@ -37,12 +48,23 @@ public class GameRunningState extends BasicGameState
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)	throws SlickException 
 	{
-		world.update();
+		//world.update();
+		player.update(delta);
 	}
 
 	@Override
 	public int getID() 
 	{
 		return 0;
+	}
+	
+	public void keyPressed(int key, char c) 
+	{
+		player.onKeyPressed(key);
+	}
+
+	public void keyReleased(int key, char c) 
+	{
+		player.onKeyReleased(key);
 	}
 }
